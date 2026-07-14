@@ -2,7 +2,7 @@
 
 ## 1. 发布方式
 
-保留现有 Vite 工程。新增发布专用构建步骤：先运行既有生产构建，再复制一个 Cloudflare Worker 兼容 ESM 入口到 `dist/server/index.js`。入口优先交给平台的静态资源绑定处理请求；对无扩展名的 SPA 路径回退到 `index.html`。
+保留现有 Vite 工程。新增发布专用构建步骤：先运行既有生产构建，将 Vite 的静态文件整理到 `dist/client/`，再复制一个 Cloudflare Worker 兼容 ESM 入口到 `dist/server/index.js`。这与 Sites 模板的 client/server 产物边界一致；入口优先交给平台的静态资源绑定处理请求，对无扩展名的 SPA 路径回退到 `index.html`。
 
 ## 2. 模块职责
 
@@ -25,7 +25,7 @@
 ## 4. 验证策略
 
 - `npm test`、`npm run typecheck`、`npm run build:site` 必须通过。
-- 检查 `dist/server/index.js` 和 `dist/.openai/hosting.json` 均进入发布包。
+- 检查 `dist/client/index.html`、`dist/server/index.js` 和 `dist/.openai/hosting.json` 均进入发布包。
 - Sites 保存版本返回的提交 SHA 必须与本地 `HEAD` 一致。
 - 部署状态必须为 `succeeded`；若失败，不宣称有可试用站点。
-
+- 使用私有诊断访问部署根路径，必须返回工作台 HTML；仅有部署状态成功不构成可用证明。
