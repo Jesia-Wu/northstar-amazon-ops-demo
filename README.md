@@ -2,6 +2,12 @@
 
 面向中文亚马逊运营的桌面端本地原型。它把产品研究、Listing 准备、广告启动、创意缺口和利润护栏放进同一条运营链路，重点是让每个建议都能追溯到演示证据，并明确哪些数据仍然未知。
 
+## 在线试用
+
+<https://jesia-wu.github.io/northstar-amazon-ops-demo/>
+
+GitHub Pages 已连接到 `main`：后续推送经过验证的改动后，GitHub Actions 会自动重新构建并发布网站。
+
 ## 本地启动
 
 ```bash
@@ -29,8 +35,8 @@ npm run dev
 ```bash
 npm test
 npm run typecheck
-npm run build
+npm run build:pages
 npm run preview
 ```
 
-背景使用项目方在当前工作区提供的冰水照片，仅作为低对比视觉氛围；正式对外发布前，请确认图片与包装文字的使用权。
+背景使用项目方在当前工作区提供的冰水照片，仅作为低对比视觉氛围；当前 GitHub Pages 公开站已按项目方明确授权发布。日后替换为第三方或真实商品素材时，请重新确认公开使用权。
