@@ -4,10 +4,10 @@
 
 - 项目：Amazon ASIN 运营工作台
 - V5 等级：高风险发布（`high`；仅限 002 私有静态试用站）
-- 当前功能：`docs/features/002-private-static-preview/`
-- 当前里程碑：将已验收 MVP 发布为 owner-only 静态试用站
-- 当前状态：owner-only 私有静态试用站修复版已发布并实际验证可加载；功能与数据边界保持原样。
-- 下一动作：用户直接试用修复后的站点；根据运营流程反馈决定下一轮功能包，不将试用站自动扩大为公开站点。
+- 当前功能：`docs/features/003-github-pages-publishing/`
+- 当前里程碑：将已验收 MVP 发布为 GitHub Pages 长期静态站
+- 当前状态：私有试用站修复版仍可用；用户现已明确要求迁移到公开 GitHub 仓库与 GitHub Pages，正在构建公开发布链路。
+- 下一动作：完成 Pages 构建、公开仓库、Actions 部署与真实页面请求验证。
 
 ## 已完成
 
@@ -27,6 +27,7 @@
 | 2026-07-14 | 用户要求可直接打开的静态试用站；建立 owner-only 发布规格包并将发布阶段上调为高风险 | `docs/features/002-private-static-preview/`、`.codex/v5-project.json` |
 | 2026-07-14 | 尝试发布 owner-only 私有静态试用站 | 私有部署状态 `succeeded`；版本 1 基于提交 `afa9bca5ffc73b6e113a9da27bf1fe197869804e`，但用户试用根路径返回 404，不能作为可用交付 |
 | 2026-07-14 | 修复并重新发布 owner-only 私有静态试用站 | 版本 2 基于提交 `58b292c45df4304e076874477428d5833f2be2a9`；私有诊断验证根路径、JS、CSS 与背景图均返回 200 |
+| 2026-07-14 | 用户授权将站点发布至公开 GitHub 仓库并改用 GitHub Pages 长期托管 | `docs/features/003-github-pages-publishing/`、`.codex/v5-project.json` |
 
 ## 已作决策
 
@@ -47,6 +48,7 @@
 15. 2026-07-14：用户要求先直接试用静态网站。发布仅限 owner-only 私有地址；若托管平台无法验证私有访问，不把请求擅自扩大成公开站点。
 16. 2026-07-14：Sites 的私有部署接口成功接受版本 1，owner-only 前提得到满足；但用户截图与私有诊断均证明根路径返回 404。问题不是访问权限，而是托管产物布局未满足运行时约定；未使用公开部署、分享设置或自定义域名。
 17. 2026-07-14：将 Vite 静态产物从 `dist/` 根整理至 Sites 约定的 `dist/client/`，并保留 Worker 于 `dist/server/index.js`；版本 2 的私有诊断已实际返回工作台 HTML 与静态资源，证明修复有效。
+18. 2026-07-14：用户明确要求 GitHub 仓库和 GitHub Pages 长期托管；公开仓库固定命名为 `Jesia-Wu/northstar-amazon-ops-demo`，既有私有 Sites 远程保留为独立 `origin`，不被覆盖。
 
 ## 风险与待确认
 
