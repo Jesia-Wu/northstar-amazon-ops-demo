@@ -6,8 +6,8 @@
 - V5 等级：高风险发布（`high`；仅限 002 私有静态试用站）
 - 当前功能：`docs/features/003-github-pages-publishing/`
 - 当前里程碑：将已验收 MVP 发布为 GitHub Pages 长期静态站
-- 当前状态：私有试用站修复版仍可用；用户现已明确要求迁移到公开 GitHub 仓库与 GitHub Pages，正在构建公开发布链路。
-- 下一动作：完成 Pages 构建、公开仓库、Actions 部署与真实页面请求验证。
+- 当前状态：公开 GitHub 仓库与 Pages Actions 源已创建；首次工作流发现验证顺序问题，已在本地修复并通过测试，等待推送修复提交触发重新部署。
+- 下一动作：推送修复提交，等待 GitHub Pages Actions 成功并真实请求 `github.io` 页面验证。
 
 ## 已完成
 
@@ -28,6 +28,7 @@
 | 2026-07-14 | 尝试发布 owner-only 私有静态试用站 | 私有部署状态 `succeeded`；版本 1 基于提交 `afa9bca5ffc73b6e113a9da27bf1fe197869804e`，但用户试用根路径返回 404，不能作为可用交付 |
 | 2026-07-14 | 修复并重新发布 owner-only 私有静态试用站 | 版本 2 基于提交 `58b292c45df4304e076874477428d5833f2be2a9`；私有诊断验证根路径、JS、CSS 与背景图均返回 200 |
 | 2026-07-14 | 用户授权将站点发布至公开 GitHub 仓库并改用 GitHub Pages 长期托管 | `docs/features/003-github-pages-publishing/`、`.codex/v5-project.json` |
+| 2026-07-14 | 创建 `Jesia-Wu/northstar-amazon-ops-demo` 公开仓库并启用 GitHub Pages Actions 源 | GitHub API 返回仓库与 Pages URL；首次工作流发现构建前测试的顺序问题 |
 
 ## 已作决策
 
@@ -49,6 +50,7 @@
 16. 2026-07-14：Sites 的私有部署接口成功接受版本 1，owner-only 前提得到满足；但用户截图与私有诊断均证明根路径返回 404。问题不是访问权限，而是托管产物布局未满足运行时约定；未使用公开部署、分享设置或自定义域名。
 17. 2026-07-14：将 Vite 静态产物从 `dist/` 根整理至 Sites 约定的 `dist/client/`，并保留 Worker 于 `dist/server/index.js`；版本 2 的私有诊断已实际返回工作台 HTML 与静态资源，证明修复有效。
 18. 2026-07-14：用户明确要求 GitHub 仓库和 GitHub Pages 长期托管；公开仓库固定命名为 `Jesia-Wu/northstar-amazon-ops-demo`，既有私有 Sites 远程保留为独立 `origin`，不被覆盖。
+19. 2026-07-14：GitHub Pages 流程采用官方 Actions。首次运行证明 Pages 产物测试不能在构建之前执行，因此将 `build:pages` 收进 `npm test`，让本地与 CI 始终先生成同一份 Pages 静态产物再验证。
 
 ## 风险与待确认
 
@@ -71,6 +73,8 @@
 - 2026-07-14：用户截图显示部署根路径 404。使用私有诊断访问同一根路径复现为 HTTP 404 且响应体为空；未携带私有诊断凭据时为 401，证明访问策略正常。对照 Sites 模板发现当前构建把静态资源置于 `dist/` 根而非模板使用的 `dist/client/`，形成待验证的单一修复假设。
 - 2026-07-14：修复后执行 `npm test`：5 个测试文件、20 条测试全部通过；`npm run typecheck` 与 `npm run build:site` 通过，发布包含 `dist/client/index.html`、`dist/server/index.js` 和 `dist/.openai/hosting.json`。
 - 2026-07-14：Sites 版本 2 已保存并部署成功，源提交为 `58b292c45df4304e076874477428d5833f2be2a9`。私有诊断请求根路径返回 HTTP 200 与 Northstar 页面 HTML；JS、CSS、冰水背景资源均返回 HTTP 200。版本 1 仍保留作失败发布证据，但不再作为可用版本。
+- 2026-07-14：GitHub CLI 实测登录账号为 `Jesia-Wu`；仓库 `Jesia-Wu/northstar-amazon-ops-demo` 创建成功，Pages API 已设为 Actions 源。首次工作流 `29310148019` 在“Verify application”失败：`github-pages-build.test.js` 读取构建产物时 `dist/index.html` 尚未生成；未进入部署步骤。
+- 2026-07-14：修复验证顺序后，本地 `npm test`（包含 `build:pages`）通过：6 个测试文件、21 条测试；`npm run typecheck` 通过。待修复提交推送后重新验证 GitHub Actions。
 
 ## 验收矩阵
 

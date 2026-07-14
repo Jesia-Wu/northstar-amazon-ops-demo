@@ -30,13 +30,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify application
+      - name: Verify application and build static site
         run: |
           npm test
           npm run typecheck
-
-      - name: Build static site
-        run: npm run build:pages
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

@@ -10,7 +10,7 @@
     "build:site": "npm run build && node scripts/prepare-sites-worker.mjs",
     "build:pages": "tsc -b && vite build --mode github-pages && node scripts/prepare-github-pages.mjs",
     "typecheck": "tsc -b --pretty false",
-    "test": "vitest run",
+    "test": "npm run build:pages && vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
