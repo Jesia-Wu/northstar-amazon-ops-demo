@@ -1,0 +1,5 @@
+{
+  "workflow": "v5",
+  "tier": "high",
+  "active_feature": "docs/features/002-private-static-preview"
+}
