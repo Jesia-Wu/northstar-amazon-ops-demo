@@ -5,9 +5,9 @@
 - 项目：Amazon ASIN 运营工作台
 - V5 等级：高风险（`high`；GitHub 外部推送、InsForge 生产部署与托管切换）
 - 当前功能：`docs/features/005-insforge-publishing/`
-- 当前里程碑：InsForge 正式站已上线并通过验收；正在把 GitHub Pages 自动部署替换为纯验证工作流，再停用 Pages 服务。
-- 当前状态：提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f` 已推送 GitHub 并通过 Actions；同一提交已部署到 InsForge，状态 `READY`，正式网址为 `https://9kjrnynx.insforge.site/`。被官方 CLI 工具输出暴露的旧管理员 API Key 已经用户批准后轮换并立即失效，新 Key 未进入源码、日志或 Git 历史。
-- 下一动作：推送纯验证工作流，确认 Actions 成功后停用 GitHub Pages，并回写最终切换证据。
+- 当前里程碑：GitHub 留档、InsForge 正式发布和 GitHub Pages 退役均已完成。
+- 当前状态：应用提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f` 已部署到 InsForge，状态 `READY`，正式网址为 `https://9kjrnynx.insforge.site/`。GitHub `main` 保留源码与历史，提交 `ee76260e0177029781bf02245d3586a70411f063` 已切换为纯验证 Actions；run `29482070619` 为 success，Pages API 返回 404。旧管理员 API Key 已轮换并立即失效，新 Key 未进入源码、日志或 Git 历史。
+- 下一动作：后续代码修改继续走“本地验证 → GitHub 留档与 Actions → InsForge 部署”的固定链路。
 
 ## 已完成
 
@@ -37,6 +37,7 @@
 | 2026-07-16 | 发布候选提交已推送 GitHub 并通过远端 Actions | 提交 `49cc1add6b4bed5e129096f5593c57b42dbad84a`；Actions run `29479411687` success |
 | 2026-07-16 | 完成 InsForge `northstar` 绑定与管理员 Key 安全轮换 | guard 审批通过；旧 Key 立即失效；本地重新绑定；`.insforge/` 已加入 `.gitignore` |
 | 2026-07-16 | 完成 InsForge 生产部署与公网验收 | GitHub 提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f`；部署 `8022c824-c84f-4bbf-99b3-42e408544ea7`；状态 `READY`；`https://9kjrnynx.insforge.site/` |
+| 2026-07-16 | 完成正式托管切换并退役 GitHub Pages | 提交 `ee76260e0177029781bf02245d3586a70411f063`；纯验证 Actions run `29482070619` success；Pages API 404；InsForge 切换后 HTTP 200 |
 
 ## 已作决策
 
@@ -65,6 +66,7 @@
 23. 2026-07-16：用户要求保留历史版本可追溯，因此发布链路改为“本地验证 → GitHub `main` 留档 → InsForge 部署同一提交”。GitHub 不再承担正式网站托管；GitHub Pages 仅在 InsForge 正式站验证成功后停用。
 24. 2026-07-16：InsForge 正式部署固定对应 GitHub 提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f`；GitHub Actions run `29480675049` 先行成功，部署元数据记录仓库、分支和提交 SHA。
 25. 2026-07-16：InsForge 正式网址、静态资源和创意资产核心流程均已验收，因此允许进入 GitHub Pages 退役步骤；GitHub 仓库、提交历史和纯验证 Actions 继续保留。
+26. 2026-07-16：GitHub Pages 已通过官方 API 停用；GitHub `main` 与历史提交继续作为源码真相，InsForge `northstar` 是唯一正式网站托管方。
 
 ## 风险与待确认
 
@@ -97,6 +99,7 @@
 - 2026-07-16：GitHub 留档提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f` 的 Actions run `29480675049` 为 success。InsForge deployment `8022c824-c84f-4bbf-99b3-42e408544ea7` 状态 `READY`，正式网址根页面、JS、CSS 和 700,324 B 压缩背景图均返回 HTTP 200。
 - 2026-07-16：InsForge 正式网址在 1440×1024 浏览器中完成关键路径验收：打开“创意资产”、生成 4 个视觉提案、切换“清洁路径图”并复制当前提示词；验收快照显示“4 个视觉提案已就绪”和“已复制当前提示词摘要”。
 - 2026-07-16：托管切换前本地复验发现 `starts the local demo for a valid normalized ASIN` 在默认 5 秒上限处稳定超时（业务断言未失败）；`vite.config.ts` 将测试超时上限调整为 10 秒并保留单 worker 隔离。该单条用例随后通过；全套 `npm test` 为 8 文件、27 条测试全部通过，`npm run typecheck` 与 `npm run build` 也通过。
+- 2026-07-16：托管切换提交 `ee76260e0177029781bf02245d3586a70411f063` 的纯验证 Actions run `29482070619` completed/success。随后 GitHub Pages DELETE 成功，Pages 查询返回 HTTP 404；远端 `main` 仍指向该提交，切换后 InsForge 正式站再次返回 HTTP 200。
 
 ## 验收矩阵
 
@@ -122,7 +125,7 @@
 
 ## 下一步
 
-1. 完成纯验证工作流推送与 GitHub Pages 停用，并保留 GitHub `main` 作为唯一源码与历史来源。
+1. 后续功能变更继续先推送 GitHub `main` 留档并等待 Actions 成功，再从对应提交部署 InsForge。
 2. 若进入真实数据版，先独立确认首个数据源、字段、权限、条款与只读边界；这不是给演示数据套个假胡子就能上线的事。
 3. 若需要保存多个 ASIN 或历史对比，另建持久化功能包并先确定本地存储/云端账户边界。
 4. 若进入移动端，另立任务完成导航、信息层级与触控体验的专项设计和测试。

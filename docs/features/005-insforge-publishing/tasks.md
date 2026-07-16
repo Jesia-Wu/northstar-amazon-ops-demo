@@ -10,7 +10,7 @@
   验证：脱敏读取本地绑定配置只显示 `northstar`、区域、guard 与 Key 是否存在；回复与仓库不暴露凭据（AC-503）。
 - [x] T2.3 部署同一 Git 提交并验证正式站。
   验证：提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f` 部署状态为 `READY`；正式 URL、JS、CSS、压缩背景图和关键创意交互通过（AC-503、AC-504）。
-- [ ] T3.1 将 GitHub Pages 自动部署替换为纯验证工作流，并停用 Pages。
-  验证：InsForge 已先验收成功；GitHub 仓库保留，工作流只含检查，Pages 已停用（AC-502、AC-505）。
-- [ ] T3.2 回写发布证据。
-  验证：README 与 `task.md` 记录发布 URL、部署 ID、验证和回滚信息。
+- [x] T3.1 将 GitHub Pages 自动部署替换为纯验证工作流，并停用 Pages。
+  验证：InsForge 已先验收成功；GitHub Actions run `29482070619` 的纯验证工作流为 success；Pages API 返回 404，GitHub 仓库和历史仍保留（AC-502、AC-505）。
+- [x] T3.2 回写发布证据。
+  验证：README 与 `task.md` 已记录发布 URL、部署 ID、验证、Key 轮换和回滚信息。
