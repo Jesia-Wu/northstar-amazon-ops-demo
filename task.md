@@ -6,7 +6,7 @@
 - V5 等级：高风险（`high`；GitHub 外部推送、InsForge 生产部署与托管切换）
 - 当前功能：`docs/features/005-insforge-publishing/`
 - 当前里程碑：GitHub 留档、InsForge 正式发布和 GitHub Pages 退役均已完成。
-- 当前状态：应用提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f` 已部署到 InsForge，状态 `READY`，正式网址为 `https://9kjrnynx.insforge.site/`。GitHub `main` 保留源码与历史，提交 `ee76260e0177029781bf02245d3586a70411f063` 已切换为纯验证 Actions；run `29482070619` 为 success，Pages API 返回 404。旧管理员 API Key 已轮换并立即失效，新 Key 未进入源码、日志或 Git 历史。
+- 当前状态：应用提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f` 已部署到 InsForge，状态 `READY`，正式网址为 `https://9kjrnynx.insforge.site/`。GitHub `main` 继续保留源码与历史；提交 `ee76260e0177029781bf02245d3586a70411f063` 完成纯验证 Actions 切换，run `29482070619` 为 success，Pages API 返回 404。后续记录提交继续由同一纯验证工作流守门。旧管理员 API Key 已轮换并立即失效，新 Key 未进入源码、日志或 Git 历史。
 - 下一动作：后续代码修改继续走“本地验证 → GitHub 留档与 Actions → InsForge 部署”的固定链路。
 
 ## 已完成
