@@ -3,11 +3,11 @@
 ## 当前快照
 
 - 项目：Amazon ASIN 运营工作台
-- V5 等级：高风险发布（`high`；仅限 002 私有静态试用站）
-- 当前功能：`docs/features/003-github-pages-publishing/`
-- 当前里程碑：将已验收 MVP 发布为 GitHub Pages 长期静态站
-- 当前状态：公开 GitHub 仓库与 GitHub Pages 已发布成功；公网请求和真实浏览器均已验证，站点可长期通过 `github.io` 地址访问。
-- 下一动作：用户试用公开 GitHub Pages；后续任何经过验证的 `main` 分支推送会自动重新发布。
+- V5 等级：高风险（`high`；GitHub 外部推送、InsForge 生产部署与托管切换）
+- 当前功能：`docs/features/005-insforge-publishing/`
+- 当前里程碑：先以 GitHub 保存可追溯版本，再将同一提交发布到 InsForge，并在新站验收后停用 GitHub Pages。
+- 当前状态：创意工作台、压缩背景和发布前验收已完成；用户已明确授权推送和 InsForge 发布，官方 CLI 已通过 Zen 登录成功。
+- 下一动作：审计并推送 GitHub；远端检查成功后绑定截图中的“北极星”项目并部署同一提交。
 
 ## 已完成
 
@@ -30,6 +30,10 @@
 | 2026-07-14 | 用户授权将站点发布至公开 GitHub 仓库并改用 GitHub Pages 长期托管 | `docs/features/003-github-pages-publishing/`、`.codex/v5-project.json` |
 | 2026-07-14 | 创建 `Jesia-Wu/northstar-amazon-ops-demo` 公开仓库并启用 GitHub Pages Actions 源 | GitHub API 返回仓库与 Pages URL；首次工作流发现构建前测试的顺序问题 |
 | 2026-07-14 | 修复工作流并完成 GitHub Pages 首次发布 | Actions run `29310323742` 成功；公网根页面、JS、CSS、背景图与真实浏览器均验证可用 |
+| 2026-07-14 | 用户要求创意资产向“卖点输入 → 图片生成方案”工作台升级；按 V5 建立本地原型规格 | `docs/features/004-creative-image-studio/`、`.codex/v5-project.json` |
+| 2026-07-14 | 完成本地卖点驱动图片创作台原型：四种画面方向、本地生成状态、主预览、提示词摘要与复制反馈 | `src/components/CreativeStudio.tsx`、`src/lib/creativeStudio.ts`、`src/data/demoCreativeStudio.ts` |
+| 2026-07-16 | 压缩网页冰水背景并保持既有资源路径 | `public/assets/ice-water-bottles.jpg` 从 6,400,908 B / 6000×4000 降至 700,324 B / 2560×1706；真实浏览器视觉、静态请求与控制台复验通过 |
+| 2026-07-16 | 用户将正式托管目标改为 InsForge，并要求 GitHub 继续作为代码历史与回滚来源 | `docs/features/005-insforge-publishing/`、`.codex/v5-project.json` |
 
 ## 已作决策
 
@@ -53,6 +57,9 @@
 18. 2026-07-14：用户明确要求 GitHub 仓库和 GitHub Pages 长期托管；公开仓库固定命名为 `Jesia-Wu/northstar-amazon-ops-demo`，既有私有 Sites 远程保留为独立 `origin`，不被覆盖。
 19. 2026-07-14：GitHub Pages 流程采用官方 Actions。首次运行证明 Pages 产物测试不能在构建之前执行，因此将 `build:pages` 收进 `npm test`，让本地与 CI 始终先生成同一份 Pages 静态产物再验证。
 20. 2026-07-14：公开站的长期入口固定为 `https://jesia-wu.github.io/northstar-amazon-ops-demo/`；GitHub `main` 为自动发布源，保留历史提交作为回滚点。
+21. 2026-07-14：图片创作台本期只模拟“卖点 → 视觉方案”的交互，不接 GPT Image、不开 API Key 输入。未来真实模型接入独立升为高风险功能，Key 仅服务端环境变量持有；用户此前授权本项目持续推进，因此本轮不等待额外视觉确认。
+22. 2026-07-14：当前 Node 24 桌面环境下，Vitest 默认并行线程池会停在 `RUN` 阶段；已用现有测试复现，并在 `vite.config.ts` 固定单一 `forks` worker。小型前端套件保持可重复运行，未改变应用运行时或发布产物。
+23. 2026-07-16：用户要求保留历史版本可追溯，因此发布链路改为“本地验证 → GitHub `main` 留档 → InsForge 部署同一提交”。GitHub 不再承担正式网站托管；GitHub Pages 仅在 InsForge 正式站验证成功后停用。
 
 ## 风险与待确认
 
@@ -78,6 +85,9 @@
 - 2026-07-14：GitHub CLI 实测登录账号为 `Jesia-Wu`；仓库 `Jesia-Wu/northstar-amazon-ops-demo` 创建成功，Pages API 已设为 Actions 源。首次工作流 `29310148019` 在“Verify application”失败：`github-pages-build.test.js` 读取构建产物时 `dist/index.html` 尚未生成；未进入部署步骤。
 - 2026-07-14：修复验证顺序后，本地 `npm test`（包含 `build:pages`）通过：6 个测试文件、21 条测试；`npm run typecheck` 通过。待修复提交推送后重新验证 GitHub Actions。
 - 2026-07-14：GitHub Actions run `29310323742` 的 build 与 deploy jobs 均为 `success`。公网请求 GitHub Pages 根路径返回 HTTP 200 和 Northstar HTML；JS（227,808 B）、CSS（27,381 B）和冰水背景图（6,400,908 B）均返回 HTTP 200。Playwright 1440 × 1024 真实浏览器验证标题、六模块导航、任务与本地演示标识均可见。
+- 2026-07-14：图片创作台 TDD：`creativeStudio.test.ts` 先因模块不存在失败；实现后规则测试 3/3 通过。`CreativeStudio.test.tsx` 先因组件不存在失败；实现后组件测试 2/2 通过。`npm test` 通过：8 个文件、27 条测试；`npm run typecheck` 和 `npm run build` 通过。本机预览 `http://127.0.0.1:5173/` 返回 HTTP 200，并已在 Codex 内置浏览器打开；尚未完成 1440px 真实浏览器网络/控制台完整检查。
+- 2026-07-16：冰水背景保持 JPEG 路径不变，缩至 2560×1706、700,324 B，较原始 6,400,908 B 减少约 89.1%。`npm test` 通过 8 个文件、27 条测试；`npm run typecheck` 与 `npm run build` 通过。Playwright 在 1440×1024 打开生产预览，背景请求返回 HTTP 200、`content-length: 700324`，控制台 0 Error / 0 Warning；验收截图为 `output/playwright/background-compression-verified.png`。本轮未发布或推送远程。
+- 2026-07-16：按 InsForge 官方说明使用 `npx @insforge/cli` 发起 Zen 浏览器登录。前两次网页授权成功回调，但 CLI 经本机代理换取凭据时超时；比较连接后改用直连，第三次登录成功。未改用邮箱密码，也未在仓库或回复中暴露凭据。登录后项目列表接口仍偶发连接超时，GitHub 留档步骤先按冻结顺序继续。
 
 ## 验收矩阵
 
@@ -95,14 +105,15 @@
 
 ## 本轮需求快照
 
-- 当前任务：将已验收的 Amazon 运营控制台初级网站发布到公开 GitHub 仓库，并以 GitHub Pages 长期托管；使用内置演示数据，不接 MCP、Amazon、LLM 或任何外部数据服务。
-- 设计：不照抄参考网站；吸收其运营信息密度，升级为适合产品规划、上架准备、广告启动和日常优化的 Summer Glass Operations。主画布冰白水蓝，用户提供的冰水照片经过淡化处理，前景为可读的半透明白玻璃。
-- 交互：模块切换、ASIN 本地演示分析、阶段推进、今日任务、证据高亮、草稿复制；动效需克制、可中断、尊重减少动态效果设置。
-- 授权：用户明确允许本轮自行继续、不再要求视觉或实现确认；仍不扩大至真实账号、真实数据、外部写入或生产发布。
+- 当前任务：将创意工作台和压缩背景先推送到 GitHub 留档，再将同一版本发布到用户的 InsForge“北极星”项目。
+- 设计：沿用 Summer Glass Operations 的冰白、水蓝、薄荷玻璃系统与用户提供的冰水背景；三栏工作流强调“卖点 → 画面方案 → 提示词摘要”，而不是通用 AI 聊天框。
+- 边界：仅浏览器内存与固定本地素材；不接 GPT Image、MCP、Amazon 或其他网络服务，不接收/保存 API Key，不上传产品信息或生成真实图片。
+- 验证现状：规则、组件与应用回归共 27 条测试、类型检查和普通生产构建通过。1440px 真实浏览器已完成产品/卖点输入、四提案生成、主预览切换和复制反馈；控制台 0 Error / 0 Warning，Network 仅有本站静态资源。
+- 发布：用户已明确授权推送 GitHub 和部署 InsForge。GitHub 负责版本历史，InsForge 负责正式网站；GitHub Pages 在 InsForge 验收通过后停用。
 
 ## 下一步
 
-1. 用户试用公开 GitHub Pages，提供运营流程和视觉反馈。
+1. 完成 InsForge 登录、发布前验证、GitHub 推送和 InsForge 正式部署，再停用 GitHub Pages。
 2. 若进入真实数据版，先独立确认首个数据源、字段、权限、条款与只读边界；这不是给演示数据套个假胡子就能上线的事。
 3. 若需要保存多个 ASIN 或历史对比，另建持久化功能包并先确定本地存储/云端账户边界。
 4. 若进入移动端，另立任务完成导航、信息层级与触控体验的专项设计和测试。

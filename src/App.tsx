@@ -25,6 +25,7 @@ import {
   WalletCards,
 } from 'lucide-react';
 import { actionDrafts, assets, brief, dataGaps, demoMeta, evidence, sellingPoints } from './data/demoResearch';
+import CreativeStudio from './components/CreativeStudio';
 import { objectives, validateResearchInput } from './lib/asin';
 import { advanceDemoStep, createDemoSteps } from './lib/demoMachine';
 import type { DemoStep, ResearchObjective } from './types';
@@ -444,12 +445,7 @@ export default function App() {
   }
 
   function renderCreative() {
-    return (
-      <div className="view-content module-view">
-        <section className="glass module-hero stagger-item"><p className="eyebrow"><ImagePlus size={14} aria-hidden="true" /> Creative readiness</p><h1>让图片承担解释，不承担装饰</h1><p>主图负责被看见，功能图负责被理解，场景图负责让用户想象自己使用。每一张都该解决一个购买问题。</p><EvidenceButton id="E-008" active={activeEvidence === 'E-008'} onClick={setActiveEvidence} /></section>
-        <section className="creative-grid stagger-item delay-1">{assets.map((asset, index) => <article className={`glass creative-card ${activeEvidence === asset.evidenceId ? 'is-highlighted' : ''}`} key={asset.id}><div className="creative-image"><img src={asset.src} alt={`内置演示素材：${asset.label}`} /><span>{String(index + 1).padStart(2, '0')}</span></div><div><h2>{asset.label}</h2><p>{asset.description}</p><EvidenceButton id={asset.evidenceId} active={activeEvidence === asset.evidenceId} onClick={setActiveEvidence} /></div></article>)}</section>
-      </div>
-    );
+    return <CreativeStudio />;
   }
 
   function renderProfit() {

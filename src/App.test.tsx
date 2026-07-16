@@ -21,6 +21,17 @@ test('switches to the ad strategy view without a page reload', async () => {
   expect(screen.getByRole('button', { name: '广告策略' })).toHaveAttribute('aria-current', 'page');
 });
 
+test('opens the selling-point-driven creative studio instead of a static image gallery', async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  await user.click(screen.getByRole('button', { name: '创意资产' }));
+
+  expect(screen.getByRole('heading', { name: '卖点驱动图片创作台' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: '生成 4 个视觉提案' })).toBeEnabled();
+  expect(screen.getByText('不上传卖点 · 不填写 Key · 不调用模型')).toBeInTheDocument();
+});
+
 test('keeps an invalid ASIN visible as a recoverable error and prevents submission', async () => {
   const user = userEvent.setup();
   render(<App />);

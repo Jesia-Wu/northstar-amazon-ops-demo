@@ -34,3 +34,31 @@ export interface ActionDraft {
   evidenceId: string;
   copyText: string;
 }
+
+export type CreativeChannel = 'listing' | 'a-plus';
+
+export type CreativeAspectRatio = '1:1' | '4:5' | '16:9';
+
+export type GenerationStatus = 'idle' | 'generating' | 'ready';
+
+export interface CreativeBriefDraft {
+  productName: string;
+  sellingPoints: string;
+  channel: CreativeChannel;
+  directionId: string;
+  aspectRatio: CreativeAspectRatio;
+  avoid: string;
+}
+
+export interface CreativeDirection {
+  id: string;
+  name: string;
+  purpose: string;
+  frame: string;
+  imageSrc: string;
+}
+
+export interface CreativeProposal extends CreativeDirection {
+  sellingPoint: string;
+  promptSummary: string;
+}
