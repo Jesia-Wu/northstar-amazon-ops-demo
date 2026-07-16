@@ -22,22 +22,11 @@
 - `task.md` 记录事实，不复述完整规格，也不充当聊天记录。
 
 <!-- INSFORGE:START -->
-## InsForge backend
+## InsForge 托管规则
 
-This project uses [InsForge](https://insforge.dev) for frontend hosting. Database, authentication, storage, edge functions, realtime, the AI model gateway, and payments are not connected in the current local-demo release.
-
-- **Project:** **northstar** (API base `https://9kjrnynx.ap-southeast.insforge.app`)
-- **Skills:** these InsForge skills are installed for supported coding agents. Reach for them before implementing any InsForge feature instead of guessing the API:
-  - `insforge`: app code with the `@insforge/sdk` client (database CRUD, auth, storage, edge functions, realtime, AI, email, and Stripe payments).
-  - `insforge-cli`: backend and infrastructure via the `insforge` CLI (projects, SQL, migrations, RLS policies, storage buckets, functions, secrets, payment setup, schedules, deploys).
-  - `insforge-debug`: diagnosing failures (SDK/HTTP errors, RLS denials, auth and OAuth issues) and running security or performance audits.
-  - `insforge-integrations`: wiring external auth providers (Clerk, Auth0, WorkOS, Better Auth, etc.) for JWT-based RLS, or the OKX x402 payment facilitator.
-  - `find-skills`: discovering additional skills on demand.
-- **Credentials:** app code reads keys from `.env.local`; the CLI reads `.insforge/project.json`. Never hardcode or commit keys.
-
-Key patterns:
-
-- Database inserts take an array: `insert([{ ... }])`.
-- Reference users with `auth.users(id)`; use `auth.uid()` in RLS policies.
-- For storage uploads, persist both the returned `url` and `key`.
+- 正式网站由 InsForge `northstar` 托管；当前只使用前端部署，不使用数据库、认证、存储、函数、实时、模型网关或支付。
+- GitHub `main` 是源码、版本历史和回滚事实源。只有对应提交通过 GitHub Actions 后，才允许部署 InsForge。
+- CLI 使用本机 `.insforge/project.json`；该目录必须保持 Git 忽略，凭据不得进入源码、日志或回复。
+- 禁止直接输出 `current --json` 或原始凭据配置；只使用普通状态输出或白名单脱敏字段。
+- InsForge 相关开发优先使用已安装的官方 Skills；发布、验收和回滚步骤见 `docs/operator-runbook.md`。
 <!-- INSFORGE:END -->

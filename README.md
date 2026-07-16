@@ -11,7 +11,7 @@
 ## 本地启动
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -39,5 +39,11 @@ npm run typecheck
 npm run build
 npm run preview
 ```
+
+## 维护文档
+
+- [文档索引](docs/README.md)
+- [发布、验收与回滚手册](docs/operator-runbook.md)
+- [当前开发记录](task.md)
 
 背景使用项目方在当前工作区提供的冰水照片，仅作为低对比视觉氛围；已按项目方明确授权用于公开网站。日后替换为第三方或真实商品素材时，请重新确认公开使用权。

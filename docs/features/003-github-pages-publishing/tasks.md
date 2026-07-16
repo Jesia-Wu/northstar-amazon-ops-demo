@@ -1,5 +1,7 @@
 # 003：GitHub Pages 持续静态发布任务清单
 
+> 状态：历史发布记录；GitHub Pages 已于 2026-07-16 停用。
+
 - [x] T0.1 冻结公开 GitHub Pages 边界、公开素材风险、回滚与验收点。  
   验证：`spec.md`、`plan.md`、`tasks.md` 与项目记录更新。
 - [x] T1.1 先写 Pages 静态产物测试。  

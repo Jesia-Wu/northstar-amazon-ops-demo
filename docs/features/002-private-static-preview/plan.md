@@ -1,5 +1,7 @@
 # 002：私有静态试用站实施方案
 
+> 状态：历史方案，相关 Sites 构建链路已退役；不要用于当前发布。
+
 ## 1. 发布方式
 
 保留现有 Vite 工程。新增发布专用构建步骤：先运行既有生产构建，将 Vite 的静态文件整理到 `dist/client/`，再复制一个 Cloudflare Worker 兼容 ESM 入口到 `dist/server/index.js`。这与 Sites 模板的 client/server 产物边界一致；入口优先交给平台的静态资源绑定处理请求，对无扩展名的 SPA 路径回退到 `index.html`。

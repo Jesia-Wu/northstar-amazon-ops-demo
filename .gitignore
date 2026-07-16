@@ -3,6 +3,12 @@ dist/
 playwright-report/
 test-results/
 .insforge/
+.openai/
+.playwright-cli/
+.superpowers/
+output/
+outputs/
+work/
 
 # InsForge & AI agent skills
 .agent

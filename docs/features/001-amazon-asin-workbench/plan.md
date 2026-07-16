@@ -2,14 +2,14 @@
 
 ## 1. 技术选择
 
-推荐采用单仓库 TypeScript 架构，便于先快跑、后分层：
+当前采用单仓库 TypeScript 静态前端架构：
 
 | 层 | 建议 | 原因 |
 | --- | --- | --- |
-| Web | Next.js + TypeScript + Tailwind + shadcn/ui | 工作台式界面、服务端路由、中文表单与列表开发快 |
-| API/业务 | Next.js Route Handlers + Zod | 输入/输出校验与前端类型共享 |
+| Web | Vite + React + TypeScript + 纯 CSS | 静态部署简单，组件和规则可独立测试 |
+| 业务规则 | TypeScript 纯函数 | 输入校验、状态转换和提示词编排不依赖 React 或服务端 |
 | 状态 | React 浏览器状态 + 固定 fixture | 初级网站无服务端、无数据库、可稳定演示 |
-| 图片 | 本地静态/远程演示素材 | 只用于界面展示，不表示从 Amazon 下载 |
+| 图片 | 本地静态演示素材 | 只用于界面展示，不表示从 Amazon 下载 |
 | AI 内容 | 固定结构化演示文案 | 无 LLM 调用、无密钥、可核验引用关系 |
 | 测试 | Vitest + React Testing Library + Playwright | 规则、交互和真实浏览器主路径 |
 
