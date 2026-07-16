@@ -20,7 +20,7 @@
    ```
 
 3. 提交并推送 GitHub `main`，等待 `Verify application` 工作流成功。
-4. 记录通过验证的完整提交 SHA，从该提交所在的干净工作树部署：
+4. 若提交改变会进入 InsForge 包的应用源代码、构建配置或静态资源，记录通过验证的完整 SHA，并从该提交所在的干净工作树部署；只修改被 `.vercelignore` 排除的文档时，无需制造空部署：
 
    ```bash
    npx --yes @insforge/cli@latest deployments deploy . --meta '{"gitCommitSha":"<完整提交 SHA>","gitBranch":"main","sourceRepository":"Jesia-Wu/northstar-amazon-ops-demo"}'
@@ -55,5 +55,5 @@ curl -fsS -o /dev/null -w 'HTTP %{http_code}\n' https://9kjrnynx.insforge.site/
 
 ## 当前可用回滚点
 
-- 应用发布提交：`806d2e96b4a00aacd2decd91a13489b9fabb3c3f`
-- 已验证部署：`8022c824-c84f-4bbf-99b3-42e408544ea7`
+- 应用发布提交：`68d7766e18340a0d08c6db92cd6dc7478d4adfa9`
+- 已验证部署：`49769ca6-0e57-480d-8e5a-1152ff88d5e6`

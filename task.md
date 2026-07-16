@@ -7,7 +7,7 @@
 - 产品状态：静态单页本地演示，使用固定 fixture；不连接 Amazon、MCP、LLM、数据库或真实账号。
 - 正式网站：<https://9kjrnynx.insforge.site/>。
 - 源码事实源：GitHub `Jesia-Wu/northstar-amazon-ops-demo` 的 `main`；GitHub Actions 只做持续检查，GitHub Pages 已停用。
-- 发布事实：应用提交 `806d2e96b4a00aacd2decd91a13489b9fabb3c3f` 对应 InsForge deployment `8022c824-c84f-4bbf-99b3-42e408544ea7`，状态 `READY`。
+- 发布事实：应用提交 `68d7766e18340a0d08c6db92cd6dc7478d4adfa9` 对应 InsForge deployment `49769ca6-0e57-480d-8e5a-1152ff88d5e6`，状态 `READY`。
 - 下一动作：后续功能继续执行“本地验证 → GitHub 留档与 Actions → InsForge 部署对应提交”。
 
 ## 稳定决策
@@ -33,6 +33,7 @@
 | 2026-07-16 | 将发布链路切换为 GitHub 留档、InsForge 正式托管 | `docs/features/005-insforge-publishing/` |
 | 2026-07-16 | 完成 InsForge 生产部署与公网验收 | deployment `8022c824-c84f-4bbf-99b3-42e408544ea7`、HTTP 200、状态 `READY` |
 | 2026-07-16 | 退役 GitHub Pages，保留 GitHub 仓库和纯验证 Actions | Pages API 404；`Verify application` workflow success |
+| 2026-07-16 | 完成文档洁癖与退役发布链路清理 | 提交 `68d7766e18340a0d08c6db92cd6dc7478d4adfa9`；Actions run `29484601457` success；新 deployment `49769ca6-0e57-480d-8e5a-1152ff88d5e6` READY |
 
 ## 最新验证证据
 
@@ -40,9 +41,9 @@
 - 浏览器：1440×1024 走通控制台、产品研究、创意资产、四提案生成、清洁路径图切换和提示词复制。
 - 网络边界：页面只请求本站静态资源，没有 Amazon、MCP、LLM 或第三方数据调用。
 - 正式站：根页面、JS、CSS 和 700,324 B 背景图均返回 HTTP 200；InsForge 状态为 `READY`。
-- GitHub：纯验证 workflow 在托管切换和最终记录提交上均成功；GitHub Pages 查询返回 404。
+- GitHub：清理提交 `68d7766e18340a0d08c6db92cd6dc7478d4adfa9` 的纯验证 Actions run `29484601457` 成功；GitHub Pages 查询返回 404。
 - 凭据：官方 CLI 曾意外回显旧管理员 Key；旧 Key 已立即轮换失效，新 Key 未进入源码、暂存区或 Git 历史。
-- 2026-07-16 收尾清理：已移除退役的 GitHub Pages / 私有 Sites 构建链路和过期实现计划；测试、类型检查和生产构建均已通过，远端验证在提交推送后执行。
+- 2026-07-16 收尾清理：已移除退役的 GitHub Pages / 私有 Sites 构建链路和过期实现计划；测试、类型检查、生产构建、GitHub Actions 和 InsForge 正式部署均通过。
 
 ## 风险与边界
 
