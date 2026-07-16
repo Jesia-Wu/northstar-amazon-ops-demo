@@ -2,3 +2,18 @@ node_modules/
 dist/
 playwright-report/
 test-results/
+.insforge/
+
+# InsForge & AI agent skills
+.agent
+.agents
+.augment
+.claude
+.cline
+.github/copilot*
+.kilocode
+.qoder
+.qwen
+.roo
+.trae
+.windsurf

@@ -6,8 +6,8 @@
 - V5 等级：高风险（`high`；GitHub 外部推送、InsForge 生产部署与托管切换）
 - 当前功能：`docs/features/005-insforge-publishing/`
 - 当前里程碑：先以 GitHub 保存可追溯版本，再将同一提交发布到 InsForge，并在新站验收后停用 GitHub Pages。
-- 当前状态：创意工作台、压缩背景和发布前验收已完成；用户已明确授权推送和 InsForge 发布，官方 CLI 已通过 Zen 登录成功。
-- 下一动作：审计并推送 GitHub；远端检查成功后绑定截图中的“北极星”项目并部署同一提交。
+- 当前状态：提交 `49cc1ad` 已推送到 GitHub，Actions 验证成功；InsForge `northstar` 已绑定并启用 guard。被官方 CLI 工具输出暴露的旧管理员 API Key 已经用户批准后轮换并立即失效，本地已重新绑定；部署环境变量为空，符合当前纯本地演示站边界。
+- 下一动作：提交并推送 InsForge 路由/排除/凭据忽略配置，再从该 GitHub 留档版本部署生产站。
 
 ## 已完成
 
@@ -34,6 +34,8 @@
 | 2026-07-14 | 完成本地卖点驱动图片创作台原型：四种画面方向、本地生成状态、主预览、提示词摘要与复制反馈 | `src/components/CreativeStudio.tsx`、`src/lib/creativeStudio.ts`、`src/data/demoCreativeStudio.ts` |
 | 2026-07-16 | 压缩网页冰水背景并保持既有资源路径 | `public/assets/ice-water-bottles.jpg` 从 6,400,908 B / 6000×4000 降至 700,324 B / 2560×1706；真实浏览器视觉、静态请求与控制台复验通过 |
 | 2026-07-16 | 用户将正式托管目标改为 InsForge，并要求 GitHub 继续作为代码历史与回滚来源 | `docs/features/005-insforge-publishing/`、`.codex/v5-project.json` |
+| 2026-07-16 | 发布候选提交已推送 GitHub 并通过远端 Actions | 提交 `49cc1add6b4bed5e129096f5593c57b42dbad84a`；Actions run `29479411687` success |
+| 2026-07-16 | 完成 InsForge `northstar` 绑定与管理员 Key 安全轮换 | guard 审批通过；旧 Key 立即失效；本地重新绑定；`.insforge/` 已加入 `.gitignore` |
 
 ## 已作决策
 
@@ -88,6 +90,7 @@
 - 2026-07-14：图片创作台 TDD：`creativeStudio.test.ts` 先因模块不存在失败；实现后规则测试 3/3 通过。`CreativeStudio.test.tsx` 先因组件不存在失败；实现后组件测试 2/2 通过。`npm test` 通过：8 个文件、27 条测试；`npm run typecheck` 和 `npm run build` 通过。本机预览 `http://127.0.0.1:5173/` 返回 HTTP 200，并已在 Codex 内置浏览器打开；尚未完成 1440px 真实浏览器网络/控制台完整检查。
 - 2026-07-16：冰水背景保持 JPEG 路径不变，缩至 2560×1706、700,324 B，较原始 6,400,908 B 减少约 89.1%。`npm test` 通过 8 个文件、27 条测试；`npm run typecheck` 与 `npm run build` 通过。Playwright 在 1440×1024 打开生产预览，背景请求返回 HTTP 200、`content-length: 700324`，控制台 0 Error / 0 Warning；验收截图为 `output/playwright/background-compression-verified.png`。本轮未发布或推送远程。
 - 2026-07-16：按 InsForge 官方说明使用 `npx @insforge/cli` 发起 Zen 浏览器登录。前两次网页授权成功回调，但 CLI 经本机代理换取凭据时超时；比较连接后改用直连，第三次登录成功。未改用邮箱密码，也未在仓库或回复中暴露凭据。登录后项目列表接口仍偶发连接超时，GitHub 留档步骤先按冻结顺序继续。
+- 2026-07-16：InsForge 账号仅有 `northstar` 一个项目，区域 `ap-southeast`、状态 active；项目已绑定并启用 guard。随后 `current --json` 的官方 CLI 输出意外包含管理员 `api_key` 字段。该值未写入源代码、暂存区或 GitHub；用户批准后已通过 guard 轮换 Key，旧 Key 立即失效，本地重新绑定成功。后续禁止直接输出 `current --json`，只使用脱敏字段检查。
 
 ## 验收矩阵
 

@@ -1,0 +1,11 @@
+.playwright-cli/
+.superpowers/
+.codex/
+.github/
+docs/
+output/
+outputs/
+work/
+AGENTS.md
+README.md
+task.md

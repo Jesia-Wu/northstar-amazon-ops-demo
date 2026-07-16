@@ -20,3 +20,24 @@
 - 按项目现有的测试、类型检查和构建命令进行验证；缺少命令时先补齐再声称完成。
 - 本项目的基础验证命令为：`npm test`、`npm run typecheck`、`npm run build`；涉及界面改动时还应在真实浏览器检查桌面端、移动端与关键交互。
 - `task.md` 记录事实，不复述完整规格，也不充当聊天记录。
+
+<!-- INSFORGE:START -->
+## InsForge backend
+
+This project uses [InsForge](https://insforge.dev) for frontend hosting. Database, authentication, storage, edge functions, realtime, the AI model gateway, and payments are not connected in the current local-demo release.
+
+- **Project:** **northstar** (API base `https://9kjrnynx.ap-southeast.insforge.app`)
+- **Skills:** these InsForge skills are installed for supported coding agents. Reach for them before implementing any InsForge feature instead of guessing the API:
+  - `insforge`: app code with the `@insforge/sdk` client (database CRUD, auth, storage, edge functions, realtime, AI, email, and Stripe payments).
+  - `insforge-cli`: backend and infrastructure via the `insforge` CLI (projects, SQL, migrations, RLS policies, storage buckets, functions, secrets, payment setup, schedules, deploys).
+  - `insforge-debug`: diagnosing failures (SDK/HTTP errors, RLS denials, auth and OAuth issues) and running security or performance audits.
+  - `insforge-integrations`: wiring external auth providers (Clerk, Auth0, WorkOS, Better Auth, etc.) for JWT-based RLS, or the OKX x402 payment facilitator.
+  - `find-skills`: discovering additional skills on demand.
+- **Credentials:** app code reads keys from `.env.local`; the CLI reads `.insforge/project.json`. Never hardcode or commit keys.
+
+Key patterns:
+
+- Database inserts take an array: `insert([{ ... }])`.
+- Reference users with `auth.users(id)`; use `auth.uid()` in RLS policies.
+- For storage uploads, persist both the returned `url` and `key`.
+<!-- INSFORGE:END -->
