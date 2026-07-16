@@ -4,9 +4,9 @@
 
 ## 代码仓库与网站发布
 
-<https://jesia-wu.github.io/northstar-amazon-ops-demo/>
+[正式网站（InsForge）](https://9kjrnynx.insforge.site/)
 
-GitHub 仓库 `Jesia-Wu/northstar-amazon-ops-demo` 负责保存源码、版本历史和回滚点。正式网站正在迁移到 InsForge；在 InsForge 验收完成前，上面仍是 2026-07-14 的 GitHub Pages 历史地址。迁移成功后会停用 GitHub Pages，并在这里替换为新的正式网址。
+[GitHub 仓库](https://github.com/Jesia-Wu/northstar-amazon-ops-demo) 只负责保存源码、版本历史、回滚点和持续检查；正式网站由 InsForge 托管。发布顺序固定为：本地验证、推送 GitHub 留档、GitHub Actions 通过、再部署同一提交到 InsForge。
 
 ## 本地启动
 
